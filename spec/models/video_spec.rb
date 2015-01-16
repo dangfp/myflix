@@ -1,9 +1,13 @@
 require 'spec_helper'
 
 describe Video do
-  it "is invalid without title"
+  it "is invalid without title" do
+    expect(Video.new(title: nil).errors_on(:title).size).to eq(1)
+  end
 
-  it "is invalid without description"
+  it "is invalid without description" do
+    expect(Video.new(description: nil).errors_on(:title).size).to eq(1)
+  end
 
   it "save itself" do
     video = Video.new(title: 'First video', description: 'I liked a video.')
