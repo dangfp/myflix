@@ -1,8 +1,8 @@
 videos = [
-  { title: 'first video', description: 'this is the first video that i make it myself', small_cover_url: '/tmp/family_guy.jpg', large_cover_url: '/tmp/monk_large.jpg' },
-  { title: 'second video', description: 'this is the second video that i make it myself', small_cover_url: '/tmp/futurama.jpg', large_cover_url: '/tmp/monk_large.jpg' },
-  { title: 'third video', description: 'this is the third video that i make it myself', small_cover_url: '/tmp/monk.jpg', large_cover_url: '/tmp/monk_large.jpg' },
-  { title: 'fourth video', description: 'this is the fourth video that i make it myself', small_cover_url: '/tmp/south_park.jpg', large_cover_url: '/tmp/monk_large.jpg' }
+  { title: 'family_guy', description: 'this is the first video that i make it myself', small_cover_url: '/tmp/family_guy.jpg', large_cover_url: '/tmp/monk_large.jpg' },
+  { title: 'futurama', description: 'this is the second video that i make it myself', small_cover_url: '/tmp/futurama.jpg', large_cover_url: '/tmp/monk_large.jpg' },
+  { title: 'monk', description: 'this is the third video that i make it myself', small_cover_url: '/tmp/monk.jpg', large_cover_url: '/tmp/monk_large.jpg' },
+  { title: 'south_park', description: 'this is the fourth video that i make it myself', small_cover_url: '/tmp/south_park.jpg', large_cover_url: '/tmp/monk_large.jpg' }
 ]
 
 videos.each do |attributes|
