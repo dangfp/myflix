@@ -4,8 +4,8 @@ describe User do
   it { should have_secure_password }
 
   it { should validate_presence_of(:email) }
-  it { should allow_value('test@126.com', 't1@yahoo.cn').for(:email) }
-  it { should_not allow_value('1@126.com', 'yahoo.cn').for(:email) }
+  it { should allow_value('test@yahoo.cn').for(:email) }
+  it { should_not allow_value('yahoo.cn').for(:email) }
   it { should validate_uniqueness_of(:email) }
 
   it { should validate_presence_of(:password) }
