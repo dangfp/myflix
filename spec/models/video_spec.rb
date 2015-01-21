@@ -6,11 +6,11 @@ describe Video do
   it { should belong_to(:category) }
 
   describe "#search_by_title" do
-    before(:each) do
-      cartoon = Category.create(name: 'cartoon')
-      @family_guy = Video.create(title: 'family_guy', description: 'Very funny.', category: cartoon)
+    before do
+      cartoon      = Category.create(name: 'cartoon')
+      @family_guy  = Video.create(title: 'family_guy', description: 'Very funny.', category: cartoon)
       @south_years = Video.create(title: 'south_years', description: 'Classic', category: cartoon)
-      @south_park = Video.create(title: 'south_park', description: 'Wonderful', category: cartoon)
+      @south_park  = Video.create(title: 'south_park', description: 'Wonderful', category: cartoon)
     end
 
     context "non-matching title" do

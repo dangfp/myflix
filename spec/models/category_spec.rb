@@ -5,7 +5,7 @@ describe Category do
   it { should have_many(:videos) }
 
   describe "#recent_videos" do
-    before(:each) do
+    before do
       @cartoon = Category.create(name: 'cartoon')
     end
 
