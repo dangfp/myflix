@@ -32,10 +32,8 @@ describe CategoriesController do
   end
 
   describe "For authenticated user" do
-    before do
-      user = Fabricate(:user)
-      session[:user_id] = user.id
-    end
+    before { signed_in }
+
 
     describe "GET #new" do
       it "assigns a new Category to @category" do

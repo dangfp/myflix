@@ -29,10 +29,7 @@ describe VideosController do
   end
 
   describe "For authenticated user" do
-    before do
-      user = Fabricate(:user)
-      session[:user_id] = user.id
-    end
+    before { signed_in }
 
     describe "GET #index" do
       it "assigns the requested categories to @categories" do
