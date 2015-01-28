@@ -49,6 +49,13 @@ describe VideosController do
         expect(assigns(:video)).to eq(monk)
       end
 
+      it "assigns the requested reviews to @reviews" do
+        review1 = Fabricate(:review, video: monk)
+        review2 = Fabricate(:review, video: monk)
+        get :show, id: monk
+        expect(assigns(:reviews)).to match_array([review1, review2])
+      end
+
       it "renders the :show template" do
         get :show, id: monk
         expect(response).to render_template(:show)
