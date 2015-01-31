@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
 
   def require_sign_in
     if !current_user
-      flash[:error] = "Must be signed in to do that."
+      flash[:danger] = "Must be signed in to do that."
       redirect_to sign_in_path
     end
   end

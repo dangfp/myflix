@@ -12,12 +12,17 @@ videos = [
   { title: 'south_park2', description: 'this is the fourth video that i make it myself', small_cover_url: '/tmp/south_park.jpg', large_cover_url: '/tmp/monk_large.jpg', category: dramas }
 ]
 
+dfp = User.create(email: 'dfpself@twitter.com', password: '123456', full_name: 'dfpself')
+
 videos.each do |attributes|
   Video.find_or_initialize_by(title: attributes[:title]).tap do |video|
     video.description = attributes[:description]
     video.small_cover_url = attributes[:small_cover_url]
     video.large_cover_url = attributes[:large_cover_url]
     video.category = attributes[:category]
+    (1..10).to_a.sample.times do
+      Review.create(creator: dfp, video: video, rating: (1..5).to_a.sample, content: 'dsfjlwjeljfldjflksjerje')
+    end
     video.save!
   end
 end

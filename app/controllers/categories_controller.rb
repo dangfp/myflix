@@ -8,8 +8,8 @@ class CategoriesController < ApplicationController
     @category = Category.new(category_params)
 
     if @category.save
-      flash[:notice] = "You've successfully created category #{@category.name}."
-      redirect_to categories_path
+      flash[:success] = "You've successfully created category #{@category.name}."
+      redirect_to home_path
     else
       render :new
     end

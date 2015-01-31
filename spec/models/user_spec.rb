@@ -13,4 +13,6 @@ describe User do
 
   it { should validate_presence_of(:full_name) }
   it { should ensure_length_of(:full_name).is_at_least(3).is_at_most(20) }
+
+  it { should have_many(:reviews) }
 end

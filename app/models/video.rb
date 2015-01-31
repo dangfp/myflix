@@ -1,5 +1,6 @@
 class Video < ActiveRecord::Base
   belongs_to :category
+  has_many :reviews, -> { order "created_at DESC" }
 
   validates_presence_of :title, :description
 
@@ -9,5 +10,9 @@ class Video < ActiveRecord::Base
     else
       where("title LIKE ?", "%#{search_term}%").order(:title)
     end
+  end
+
+  def rating
+    reviews.count > 0 ? (reviews.collect(&:rating).sum.to_f / reviews.count).round(1) : 0
   end
 end
