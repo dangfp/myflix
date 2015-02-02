@@ -74,8 +74,11 @@ describe QueueItemsController do
 
       it "resets the position for the remaining every item" do
         queue_item2 = Fabricate(:queue_item, video: family_guy, user: current_user, position: 2)
-        delete :destroy, id: queue_item
-        expect(queue_item2.reload.position).to eq(1)
+        monk = Fabricate(:video, title: 'monk', category_id: cartoon.id)
+        queue_item3 = Fabricate(:queue_item, video: monk, user: current_user, position: 3)
+        delete :destroy, id: queue_item2
+        expect(queue_item.reload.position).to eq(1)
+        expect(queue_item3.reload.position).to eq(2)
       end
     end
   end

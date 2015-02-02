@@ -14,13 +14,18 @@ class QueueItemsController < ApplicationController
   def destroy
     queue_item = QueueItem.find(params[:id])
     queue_item.delete
-    current_user.queue_items.each do |queue_item|
-      queue_item.update(position: queue_item.position - 1)
-    end
+    reorder_queue_items
+    
     redirect_to my_queue_path
   end
 
   private
+
+  def reorder_queue_items
+    current_user.queue_items.each_with_index do |queue_item, index|
+      queue_item.update(position: index + 1)
+    end
+  end
 
   def queue_video(video)
     QueueItem.create(video: video, user: current_user, position: new_position) unless current_user_queued_video?(video)
