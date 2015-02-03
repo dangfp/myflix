@@ -15,5 +15,5 @@ describe User do
   it { should ensure_length_of(:full_name).is_at_least(3).is_at_most(20) }
 
   it { should have_many(:reviews) }
-  it { should have_many(:queue_items) }
+  it { should have_many(:queue_items).order("position ASC") }
 end

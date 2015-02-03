@@ -3,6 +3,7 @@ require 'spec_helper'
 describe QueueItem do
   it { should belong_to(:user) }
   it { should belong_to(:video) }
+  it { should validate_numericality_of(:position).only_integer.is_greater_than(0) }
 
   let!(:janne) { Fabricate(:user) }
   let!(:cartoon) { Fabricate(:category, name: 'Cartoon') }
