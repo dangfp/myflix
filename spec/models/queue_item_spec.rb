@@ -35,6 +35,24 @@ describe QueueItem do
     end
   end
 
+  describe "#rating=" do
+    it "change the rating of the review if the review is present" do
+      review = Fabricate(:review, creator: janne, video: south_park, rating: 1)
+      queue_item1.rating = 5
+      expect(queue_item1.rating).to eq(5)
+    end
+
+    it "clear the rating of the review if the review is present" do
+      review = Fabricate(:review, creator: janne, video: south_park, rating: 1)
+      queue_item1.rating = nil
+      expect(queue_item1.rating).to be_nil
+    end
+
+    it "create a review with the rating if the review is not present" do
+      expect{ queue_item1.rating = 3 }.to change(Review, :count).by(1)
+    end
+  end
+
   describe "#category_name" do
     it "returns the name of the associated category" do
       expect(queue_item1.category_name).to eq('Cartoon')

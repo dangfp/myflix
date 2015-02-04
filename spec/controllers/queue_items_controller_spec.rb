@@ -90,15 +90,15 @@ describe QueueItemsController do
     end
 
     describe "POST #update" do
-      let(:queue_item1) { Fabricate(:queue_item, video: south_park, user: current_user, position: 1) }
-      let(:queue_item2) { Fabricate(:queue_item, video: family_guy, user: current_user, position: 2) }
+      let!(:queue_item1) { Fabricate(:queue_item, video: south_park, user: current_user, position: 1) }
+      let!(:queue_item2) { Fabricate(:queue_item, video: family_guy, user: current_user, position: 2) }
 
       context "with valid attributes" do
         it "update the items position in the database" do
           post :update, queue_items: [{id: queue_item1.id, position: 2}, {id: queue_item2.id, position: 1}]
           expect(current_user.queue_items).to eq([queue_item2, queue_item1])
         end
-
+        
         it "reorders the queue item by position" do
           post :update, queue_items: [{id: queue_item1.id, position: 3}, {id: queue_item2.id, position: 2}]
           expect(queue_item1.reload.position).to eq(2)
