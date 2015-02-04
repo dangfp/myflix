@@ -14,7 +14,7 @@ class QueueItemsController < ApplicationController
   def destroy
     queue_item = QueueItem.find(params[:id])
     queue_item.delete if queue_item.user == current_user
-    reorder_queue_items_position
+    current_user.reorder_queue_items_position
     
     redirect_to my_queue_path
   end
@@ -22,7 +22,7 @@ class QueueItemsController < ApplicationController
   def update
     begin
       update_queue_items
-      reorder_queue_items_position
+      current_user.reorder_queue_items_position
     rescue
       flash[:danger] = "Invalid position numbers."
     end
@@ -38,12 +38,6 @@ class QueueItemsController < ApplicationController
         queue_item = QueueItem.find(queue_item_data[:id])
         queue_item.update!(position: queue_item_data[:position]) if queue_item.user == current_user
       end
-    end
-  end
-
-  def reorder_queue_items_position
-    current_user.queue_items.each_with_index do |queue_item, index|
-      queue_item.update(position: index + 1)
     end
   end
 
