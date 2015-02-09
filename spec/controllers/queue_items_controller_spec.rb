@@ -24,7 +24,7 @@ describe QueueItemsController do
     end
 
     describe "POST #create" do
-      context "the video does't be added in queue" do
+      context "the video has be added in queue" do
         it "saves the new queue item in the database" do
           expect{ post :create, video_id: south_park.id }.to change(QueueItem, :count).by(1)
         end
@@ -52,7 +52,7 @@ describe QueueItemsController do
         end
       end
 
-      context "the video has be added in queue" do
+      context "the video does't be added in queue" do
         it "does't save the new queue item in the database" do
           Fabricate(:queue_item, video: south_park, user: current_user)
           expect{ post :create, video_id: south_park.id }.not_to change(QueueItem, :count)
@@ -98,7 +98,7 @@ describe QueueItemsController do
           post :update, queue_items: [{id: queue_item1.id, position: 2}, {id: queue_item2.id, position: 1}]
           expect(current_user.queue_items).to eq([queue_item2, queue_item1])
         end
-        
+
         it "reorders the queue item by position" do
           post :update, queue_items: [{id: queue_item1.id, position: 3}, {id: queue_item2.id, position: 2}]
           expect(queue_item1.reload.position).to eq(2)
@@ -142,31 +142,30 @@ describe QueueItemsController do
   describe "For unauthenticated user" do
 
     describe "GET #index" do
-      it "requires sign in" do
-        get :index
-        expect(response).to redirect_to(sign_in_path)
+      it_behaves_like "require_signed_in" do
+        let(:action) { get :index }
       end
     end
 
     describe "POST #create" do
-      it "requires sign in" do
-        post :create
-        expect(response).to redirect_to(sign_in_path)
+      it_behaves_like "require_signed_in" do
+        let(:action) { post :create }
       end
     end
 
     describe "DELETE #destroy" do
-      it "requires sign in" do
-        queue_item = Fabricate(:queue_item)
-        delete :destroy, id: queue_item.id
-        expect(response).to redirect_to(sign_in_path)
+      let!(:queue_item) { Fabricate(:queue_item) }
+
+      it_behaves_like "require_signed_in" do
+        let(:action) { delete :destroy, id: queue_item.id }
       end
     end
 
     describe "POST #update" do
-      it "requires sign in" do
-        patch :update
-        expect(response).to redirect_to(sign_in_path)
+      let!(:queue_item) { Fabricate(:queue_item) }
+
+      it_behaves_like "require_signed_in" do
+        let(:action) { patch :update, id: queue_item.id }
       end
     end
   end
