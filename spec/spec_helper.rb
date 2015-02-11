@@ -3,6 +3,7 @@ ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'shoulda/matchers'
+require 'capybara/rails'
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -46,6 +47,7 @@ RSpec.configure do |config|
   config.order = "random"
 
   config.include ControllerMacros, type: :controller
+  config.include FeatureMacros, type: :feature
 
   #clean database
   config.before(:suite) do

@@ -16,4 +16,17 @@ describe User do
 
   it { should have_many(:reviews) }
   it { should have_many(:queue_items).order("position ASC") }
+
+  describe "#queued_video?" do
+    let(:janne) { Fabricate(:user) }
+    let(:south_park) { Fabricate(:video) }
+    it "return true when the user queued the video" do
+      queue_item = Fabricate(:queue_item, user: janne, video: south_park)
+      expect(janne.queued_video?(south_park)).to be_truthy
+    end
+
+    it "return false when the user has't queued the video" do
+      expect(janne.queued_video?(south_park)).to be_falsey
+    end
+  end
 end
