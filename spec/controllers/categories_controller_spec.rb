@@ -5,9 +5,8 @@ describe CategoriesController do
   describe "For unauthenticated user" do
 
     describe "GET #new" do
-      it "require sign_in" do
-        get :new
-        expect(response).to redirect_to(sign_in_path)
+      it_behaves_like "require_signed_in" do
+        let(:action) { get :new }
       end
 
       it "set the error message" do
@@ -17,16 +16,14 @@ describe CategoriesController do
     end
 
     describe "POST #create" do
-      it "require sign_in" do
-        post :create
-        expect(response).to redirect_to(sign_in_path)
+      it_behaves_like "require_signed_in" do
+        let(:action) { post :create }
       end
     end
 
     describe "GET #show" do
-      it "require sign_in" do
-        get :show, id: Fabricate(:category)
-        expect(response).to redirect_to(sign_in_path)
+      it_behaves_like "require_signed_in" do
+        let(:action) { get :show, id: Fabricate(:category) }
       end
     end
   end

@@ -28,6 +28,8 @@ group :test do
   gem 'shoulda-matchers', require: false
   gem 'fabrication', '~> 2.12.1'
   gem 'faker', '~> 1.4.3'
+  gem 'capybara'
+  gem 'launchy'
 end
 
 group :production do

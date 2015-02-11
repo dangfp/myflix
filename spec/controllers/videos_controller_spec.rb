@@ -7,23 +7,20 @@ describe VideosController do
   describe "For unauthenticated user" do
 
     describe "GET #index" do
-      it "require sign_in" do
-        get :index
-        expect(response).to redirect_to(sign_in_path)
+      it_behaves_like "require_signed_in" do
+        let(:action) { get :index }
       end
     end
 
     describe "GET #show" do
-      it "require sign_in" do
-        get :show, id: monk
-        expect(response).to redirect_to(sign_in_path)
+      it_behaves_like "require_signed_in" do
+        let(:action) { get :show, id: monk }
       end
     end
 
     describe "GET #search" do
-      it "require sign_in" do
-        get :search, search_term: 'monk'
-        expect(response).to redirect_to(sign_in_path)
+      it_behaves_like "require_signed_in" do
+        let(:action) { get :search, search_term: 'monk' }
       end
     end
   end

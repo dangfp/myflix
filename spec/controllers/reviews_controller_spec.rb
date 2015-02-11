@@ -5,9 +5,8 @@ describe ReviewsController do
     let(:south_park) { Fabricate(:video) }
 
     context "For unauthenticated user" do
-      it "require sign_in" do
-        post :create, video_id: south_park.id
-        expect(response).to redirect_to(sign_in_path)
+      it_behaves_like "require_signed_in" do
+        let(:action)  { post :create, video_id: south_park.id }
       end
     end
 

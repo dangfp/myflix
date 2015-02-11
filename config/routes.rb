@@ -7,6 +7,7 @@ Myflix::Application.routes.draw do
   get  '/register', to: 'users#new'
   get  '/home',     to: "videos#index", as: 'home'
   get '/my_queue',  to: "queue_items#index"
+  post '/my_queue/update', to: "queue_items#update"
 
   resources :users,  only: [:create]
 
