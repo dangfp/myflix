@@ -17,6 +17,12 @@ describe User do
   it { should have_many(:reviews) }
   it { should have_many(:queue_items).order("position ASC") }
 
+  it { should have_many(:relationships) }
+  it { should have_many(:followed_users) }
+
+  it { should have_many(:reverse_relationships) }
+  it { should have_many(:followers) }
+
   describe "#queued_video?" do
     let(:janne) { Fabricate(:user) }
     let(:south_park) { Fabricate(:video) }
@@ -27,6 +33,42 @@ describe User do
 
     it "return false when the user has't queued the video" do
       expect(janne.queued_video?(south_park)).to be_falsey
+    end
+  end
+
+  describe "#follow!" do
+    let(:janne) { Fabricate(:user) }
+    let(:tom) { Fabricate(:user) }
+
+    it "the followed_users should include the other user" do
+      janne.follow!(tom)
+      expect(janne.followed_users).to include(tom)
+    end
+  end
+
+  describe "#following?" do
+    let(:janne) { Fabricate(:user) }
+    let(:tom) { Fabricate(:user) }
+    let(:jack) { Fabricate(:user) }
+
+    it "return true when the user followed the other user" do
+      janne.follow!(tom)
+      expect(janne.following?(tom)).to be_truthy
+    end
+
+    it "return false when the user didn't follow the other user" do
+      expect(janne.following?(jack)).to be_falsey
+    end
+  end
+
+  describe "#unfollow!" do
+    let(:janne) { Fabricate(:user) }
+    let(:tom) { Fabricate(:user) }
+    before { janne.follow!(tom) }
+
+    it "the followed_users should not include the other user" do
+      janne.unfollow!(tom)
+      expect(janne.followed_users).not_to include(tom)
     end
   end
 end

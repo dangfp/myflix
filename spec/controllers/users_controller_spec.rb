@@ -48,15 +48,25 @@ describe UsersController do
   end
 
   describe "GET #show" do
-    let(:janne) { Fabricate(:user) }
+    before { signed_in }
+    
      it "assigns a user to @user" do
-       get :show, id: janne.id
-       expect(assigns(:user)).to eq(janne)
+       get :show, id: current_user.id
+       expect(assigns(:user)).to eq(current_user)
      end
 
      it "renders the :show template" do
-       get :show, id: janne.id
+       get :show, id: current_user.id
        expect(response).to render_template(:show)
      end
+  end
+
+  describe "GET #following" do
+    before { signed_in }
+
+    it "renders the my_follow template" do
+      get :following, id: current_user.id
+      expect(response).to render_template(:show_follow)
+    end
   end
 end

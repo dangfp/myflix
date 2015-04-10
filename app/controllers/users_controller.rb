@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :require_sign_in, only: [:show, :following]
+
   def new
     @user = User.new
   end
@@ -16,6 +18,10 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+  end
+
+  def following
+    render :show_follow
   end
 
   private
