@@ -41,4 +41,8 @@ class User < ActiveRecord::Base
   def unfollow!(other_user)
     relationships.find_by(followed_id: other_user.id).destroy
   end
+
+  def can_follow?(other_user)
+    !(self.following?(other_user) || self == other_user)
+  end
 end

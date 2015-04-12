@@ -5,8 +5,7 @@
         %header
           %img(src="http://www.gravatar.com/avatar/#{Digest::MD5.hexdigest(@user.email.downcase)}?s=40")
           %h2 #{@user.full_name}'s video collections (#{@user.queue_items.count})
-          - unless current_user.following?(@user) || current_user == @user
-            = link_to 'Follow', relationships_path(followed_user_id: @user.id), method: :post, class: 'button btn btn-default'
+          = link_to 'Follow', relationships_path(followed_user_id: @user.id), method: :post, class: 'button btn btn-default' if current_user.can_follow?(@user)
         %table.table
           %thead
             %tr
