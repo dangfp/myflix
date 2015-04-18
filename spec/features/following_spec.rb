@@ -2,12 +2,12 @@ require 'spec_helper'
 
 feature "User following" do
   scenario "follows one user and unfollows the followed user" do
-    janne = Fabricate(:user)
-    tom = Fabricate(:user)
-    cartoon = Fabricate(:category)
+    janne      = Fabricate(:user)
+    tom        = Fabricate(:user)
+    cartoon    = Fabricate(:category)
     south_park = Fabricate(:video, title: 'south_park', category: cartoon)
     family_guy = Fabricate(:video, title: 'family_guy', category: cartoon)
-    review = Fabricate(:review, user_id: tom.id, video_id: south_park.id, rating: 5, content: 'very intresting')
+    review     = Fabricate(:review, user_id: tom.id, video_id: south_park.id, rating: 5, content: 'very intresting')
 
     sign_in(janne)
 
