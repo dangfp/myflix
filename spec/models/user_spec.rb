@@ -23,6 +23,11 @@ describe User do
   it { should have_many(:reverse_relationships) }
   it { should have_many(:followers) }
 
+  it "generates a random token when the user is created" do
+    janne = Fabricate(:user)
+    expect(janne.token).to be_present
+  end
+
   describe "#queued_video?" do
     let(:janne) { Fabricate(:user) }
     let(:south_park) { Fabricate(:video) }
