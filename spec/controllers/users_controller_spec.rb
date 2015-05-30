@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe UsersController do
-  
+
   describe "GET #new" do
     it "assigns a new User to @user" do
       get :new
@@ -45,11 +45,34 @@ describe UsersController do
         expect(response).to render_template(:new)
       end
     end
+
+    context "email sending" do
+      let(:new_valid_user)   { Fabricate.attributes_for(:user) }
+      let(:new_invalid_user) { Fabricate.attributes_for(:invalid_user) }
+      after { ActionMailer::Base.deliveries.clear }
+
+      it "sends out the email to the user with valid inputs" do
+        post :create, user: new_valid_user
+        message = ActionMailer::Base.deliveries.last
+        expect(message.to).to eq([new_valid_user[:email]])
+      end
+
+      it "sends out email containing the user name with valid inputs" do
+        post :create, user: new_valid_user
+        message = ActionMailer::Base.deliveries.last
+        expect(message.body).to include(new_valid_user[:full_name])
+      end
+
+      it "does not send the email with invalid inputs" do
+        post :create, user: new_invalid_user
+        expect(ActionMailer::Base.deliveries).to be_empty
+      end
+    end
   end
 
   describe "GET #show" do
     before { signed_in }
-    
+
      it "assigns a user to @user" do
        get :show, id: current_user.id
        expect(assigns(:user)).to eq(current_user)

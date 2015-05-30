@@ -20,6 +20,8 @@ class User < ActiveRecord::Base
   validates_presence_of :full_name
   validates_length_of :full_name, in: 3..20
 
+  before_create :generate_token
+
   def reorder_queue_items_position
     queue_items.each_with_index do |queue_item, index|
       queue_item.update(position: index + 1)
@@ -44,5 +46,9 @@ class User < ActiveRecord::Base
 
   def can_follow?(other_user)
     !(self.following?(other_user) || self == other_user)
+  end
+
+  def generate_token
+    self.token = SecureRandom.urlsafe_base64
   end
 end
