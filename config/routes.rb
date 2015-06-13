@@ -22,6 +22,7 @@ Myflix::Application.routes.draw do
   resources :categories,    only: [:new, :create, :show]
   resources :queue_items,   only: [:create, :destroy]
   resources :relationships, only: [:create, :destroy]
+  resources :invites,       only: [:new, :create]
 
   get 'forgot_password',              to: 'forgot_passwords#new'
   get 'forgot_password_confirmation', to: 'forgot_passwords#confirm'
